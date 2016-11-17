@@ -14,11 +14,6 @@ on post-fs-data
     mkdir /data/system/mcd 0755 system system
     restorecon_recursive /data/system/mcd
 
-# secureboot
-service setlockstate /sbin/setlockstate
-    class core
-    oneshot
-    seclabel u:r:vold:s0
 
 #mdbd
 service mdbd /sbin/mdbd
