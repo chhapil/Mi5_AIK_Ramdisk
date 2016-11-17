@@ -1,0 +1,112 @@
+#!/system/bin/sh
+
+Vdevice=$(grep ro.product.name /system/build.prop | /system/xbin/busybox cut -d "=" -f2)
+
+while true
+do
+
+case $Vdevice in
+	gemini) # 307200 422400 480000 556800 652800 729600 844800 960000 1036800 1113600 1180400 1228800 1324800 1401600 1478400 1593600
+		#screenoff_freq="1401600"
+		screenoff_freq="2150400"
+		if [ "$(dumpsys power |grep "Screen off timeout" | /system/xbin/busybox cut -d " " -f4)" == 10000 ] ; then
+		    stop mpdecision
+		    if ps |grep mpdecision ; then
+				killall mpdecision
+				mount -o rw,remount /system
+				echo "1" > /sys/devices/system/cpu/cpu0/online
+				echo "1" > /sys/devices/system/cpu/cpu1/online
+				echo "1" > /sys/devices/system/cpu/cpu2/online
+				echo "1" > /sys/devices/system/cpu/cpu3/online
+			
+				echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+		
+				echo "0" > /sys/devices/system/cpu/cpu0/online
+				echo "0" > /sys/devices/system/cpu/cpu1/online
+				echo "${screenoff_freq}" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
+				echo "${screenoff_freq}" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
+				#mount -o ro,remount /system
+			fi
+		else 
+			if ps |grep mpdecision ; then
+				echo "nothing" > /dev/null
+			else
+				mount -o rw,remount /system
+				echo "1" > /sys/devices/system/cpu/cpu0/online
+				echo "1" > /sys/devices/system/cpu/cpu1/online
+				echo "1" > /sys/devices/system/cpu/cpu2/online
+				echo "1" > /sys/devices/system/cpu/cpu3/online
+			
+				echo "1593600" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+				echo "1593600" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+				echo "2150400" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
+				echo "2150400" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
+				echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+				echo "interactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+				echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+				echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+				
+				#mount -o ro,remount /system
+				/system/xbin/mpdecision --avg_comp --no_sleep &
+			fi
+		fi
+	;;
+	kenzo) #400000 691200 806400 1017600 1190400 1305600 1382400 1401600
+		screenoff_freq="1401600"
+		if [ "$(dumpsys power |grep "Screen off timeout" | /system/xbin/busybox cut -d " " -f4)" == 10000 ] ; then
+			if [ "$(cat /sys/devices/system/cpu/cpu5/online )" == "1"  ]
+			then
+				mount -o rw,remount /system
+				echo "1" > /sys/devices/system/cpu/cpu0/online
+				echo "1" > /sys/devices/system/cpu/cpu1/online
+				echo "1" > /sys/devices/system/cpu/cpu2/online
+				echo "1" > /sys/devices/system/cpu/cpu3/online
+				echo "1" > /sys/devices/system/cpu/cpu4/online
+				echo "1" > /sys/devices/system/cpu/cpu5/online
+			
+				echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu5/cpufreq/scaling_governor
+		
+				echo "0" > /sys/devices/system/cpu/cpu2/online
+				echo "0" > /sys/devices/system/cpu/cpu3/online
+				echo "0" > /sys/devices/system/cpu/cpu4/online
+				echo "0" > /sys/devices/system/cpu/cpu5/online
+				echo "${screenoff_freq}" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+				echo "${screenoff_freq}" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+				#mount -o ro,remount /system
+			fi
+		else 
+			if [ "$(cat /sys/devices/system/cpu/cpu5/online )" == "0"  ]
+			then
+				mount -o rw,remount /system
+				echo "1" > /sys/devices/system/cpu/cpu0/online
+				echo "1" > /sys/devices/system/cpu/cpu1/online
+				echo "1" > /sys/devices/system/cpu/cpu2/online
+				echo "1" > /sys/devices/system/cpu/cpu3/online
+				echo "1" > /sys/devices/system/cpu/cpu4/online
+				echo "1" > /sys/devices/system/cpu/cpu5/online
+			
+				echo "1401600" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+				echo "1401600" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+				echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+				echo "ondemand" > /sys/devices/system/cpu/cpu5/cpufreq/scaling_governor
+				
+				#mount -o ro,remount /system
+			fi
+		fi
+	;;
+esac
+
+sleep 1
+done
