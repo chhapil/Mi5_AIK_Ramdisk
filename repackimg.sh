@@ -25,6 +25,9 @@ echo "Android Image Kitchen - RepackImg Script";
 echo "by osm0sis @ xda-developers";
 echo " ";
 
+echo "Bumping default.prop for timestamps";
+./bump_props.sh
+
 if [ ! -z "$(ls *-new.* 2> /dev/null)" ]; then
   echo "Warning: Overwriting existing files!";
   echo " ";
@@ -77,6 +80,7 @@ echo " ";
 echo "Getting build information...";
 cd split_img;
 kernel=`ls *-zImage`;               echo "kernel = $kernel";
+newimage=`ls *-zImage| sed -e "s/.img-zImage/-repacked-$(date '+%Y-%m-%d').img/"` ;               echo "New Image Name = $newimage";
 if [ "$1" = "--original" ]; then
   ramdisk=`ls *-ramdisk.cpio*`;     echo "ramdisk = $ramdisk";
   ramdisk="split_img/$ramdisk";
@@ -105,7 +109,7 @@ cd ..;
 echo " ";
 echo "Building image...";
 echo " ";
-bin/$arch/mkbootimg --kernel "split_img/$kernel" --ramdisk "$ramdisk" $second --cmdline "$cmdline" --board "$board" --base $base --pagesize $pagesize --kernel_offset $kerneloff --ramdisk_offset $ramdiskoff $secondoff --tags_offset $tagsoff $dtb -o image-new.img;
+bin/$arch/mkbootimg --kernel "split_img/$kernel" --ramdisk "$ramdisk" $second --cmdline "$cmdline" --board "$board" --base $base --pagesize $pagesize --kernel_offset $kerneloff --ramdisk_offset $ramdiskoff $secondoff --tags_offset $tagsoff $dtb -o $newimage;
 if [ ! $? -eq "0" ]; then
   abort;
   exit 1;
