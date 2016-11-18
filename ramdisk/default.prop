@@ -1,6 +1,6 @@
 #
 # ADDITIONAL_DEFAULT_PROPERTIES
-# Edited by Ru2raj for SU tries
+# Edited by Ru2raj on 2016-11-18 12:43:00
 #
 ro.miui.has_cust_partition=true
 ro.secureboot.devicelock=0
