@@ -570,3 +570,8 @@ on property:init.svc.zygote=running
 
 on property:init.svc.zygote=restarting
     stop qfp-daemon
+
+service gpu_monitor /system/bin/gpu_monitor
+    class late_start
+    user system
+    group sdcard_rw

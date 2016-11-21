@@ -185,8 +185,8 @@ on boot
     # bond0 used by FST Manager
     chown wifi wifi /sys/class/net/bond0/bonding/queue_id
 
+    start panel-info-sh
     start leds-sh
-    start tpmaker-sh
 
 # msm specific files that need to be created on /data
 on post-fs-data
@@ -797,6 +797,11 @@ service sensor-sh /system/bin/sh /init.qcom.sensors.sh
     user root
     oneshot
 
+service panel-info-sh /system/bin/sh /system/etc/init.panel_info.sh
+    class core
+    user root
+    oneshot
+
 service leds-sh /system/bin/sh /system/etc/init.leds.sh
     class core
     user root
@@ -807,10 +812,6 @@ service captouch-sh /system/bin/sh /system/etc/init.captouch.sh
     user root
     oneshot
 
-service tpmaker-sh /system/bin/sh /system/etc/init.tpmaker.sh
-    class core
-    user root
-    oneshot
 
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
     class late_start

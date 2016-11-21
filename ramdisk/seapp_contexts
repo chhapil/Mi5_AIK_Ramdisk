@@ -22,7 +22,6 @@ user=_app seinfo=platform name=com.qualcomm.qct.dlt domain=location_app type=loc
 user=system seinfo=platform name=com.qualcomm.qti.auth.securesampleauthservice domain=qsee_svc_app type=qsee_svc_app_data_file
 user=system seinfo=platform name=com.qualcomm.qti.auth.secureextauthservice domain=qsee_svc_app type=qsee_svc_app_data_file
 user=theme seinfo=platform domain=theme type=app_data_file
-user=system seinfo=platform name=com.xiaomi.mitunes domain=miassistant type=app_data_file
 user=updater seinfo=platform domain=updater type=app_data_file levelFrom=user
 user=backup seinfo=platform domain=backup type=app_data_file levelFrom=user
 user=system seinfo=platform name=com.miui.networkassistant domain=networkassistant levelFrom=user
@@ -36,3 +35,4 @@ user=_app seinfo=media name=com.android.providers.downloaders.ui type=app_data_f
 user=_app seinfo=media name=android.process.media domain=downloader levelFrom=user
 user=_app seinfo=media name=android.process.mediaUI domain=downloader levelFrom=user
 user=smartcard_svc seinfo=platform domain=platform_app type=platform_app_data_file levelFrom=user
+user=system seinfo=platform name=com.xiaomi.mitunes domain=miassistant type=app_data_file

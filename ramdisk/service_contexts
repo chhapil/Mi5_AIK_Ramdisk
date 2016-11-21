@@ -234,6 +234,7 @@ miui.whetstone    u:object_r:system_app_service:s0
 mdb.remote_display u:object_r:mdb_display_service:s0
 miui.fdpp u:object_r:fdpp_service:s0
 miui.sedc u:object_r:sedc_service:s0
+miui.mqsas.IMQSNative u:object_r:mqsasd_service:s0
 #line 1 "miui/device/common/sepolicy/v23/service_contexts"
 security          u:object_r:security_service:s0
 MiuiBackup        u:object_r:miui_backup_service:s0
