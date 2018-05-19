@@ -11,3 +11,9 @@ How to use this
 3. I have added default.prop bump to add build timestamp
 
 Added other features
+
+Steps.
+1. Copy boot.img to the folder.
+2. run unpackimg.sh to unpack the image
+3. run dtb-split.sh to split dtbs from zImage
+4. run dtb-to-dts.sh to convert dtbs to dts files
